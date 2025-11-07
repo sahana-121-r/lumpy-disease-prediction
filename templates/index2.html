@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the Model</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: violet;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      margin: 20px;
+    }
+
+    nav form {
+      display: inline;
+    }
+
+    nav button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    main {
+      margin: 30px auto;
+      max-width: 800px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+    }
+  </style>
+</head>
+
+<body>
+  <header>Model Information</header>
+
+  <nav>
+    <form action="/" method="GET">
+      <button type="submit">Home</button>
+    </form>
+    <form action="/page2" method="GET">
+      <button type="submit">Info Page</button>
+    </form>
+    <form action="/page3" method="GET">
+      <button type="submit">About / Result</button>
+    </form>
+  </nav>
+
+  <main>
+    <h2>About the Cow Lumpy Disease Prediction Model</h2>
+    <p>
+      This project uses a Convolutional Neural Network (CNN) trained on images of cows to classify them as:
+    </p>
+    <ul style="text-align:left; display:inline-block;">
+      <li>🐄 <b>Healthy Cow</b></li>
+      <li>⚠️ <b>Lumpy Cow (Infected)</b></li>
+      <li>🚫 <b>Not a Cow</b></li>
+    </ul>
+
+    <p>
+      The system provides an accurate, automated diagnosis tool for early detection of Lumpy Skin Disease.
+      The model was trained using TensorFlow and Keras, achieving high accuracy on test images.
+    </p>
+
+    <form action="/page3" method="GET">
+      <button type="submit">Go to Result Page</button>
+    </form>
+  </main>
+</body>
+</html>
