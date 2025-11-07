@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cow Lumpy Disease Detection - Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f6f6;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: violet;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      margin: 20px;
+    }
+
+    nav form {
+      display: inline;
+    }
+
+    nav button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #45a049;
+    }
+
+    form.upload-form {
+      background-color: white;
+      display: inline-block;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px gray;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .preview img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border: 3px solid #555;
+      border-radius: 10px;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button[type="submit"] {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+</head>
+
+<body>
+  <header>Cow Lumpy Disease Detection</header>
+
+  <nav>
+    <form action="/" method="GET">
+      <button type="submit">Home</button>
+    </form>
+    <form action="/page2" method="GET">
+      <button type="submit">Info Page</button>
+    </form>
+    <form action="/page3" method="GET">
+      <button type="submit">About / Result</button>
+    </form>
+  </nav>
+
+  <h2>Upload Image to Predict</h2>
+
+  <form class="upload-form" action="/predict" method="POST" enctype="multipart/form-data">
+    <!-- MULTIPLE IMAGE UPLOAD (Corrected) -->
+    <input type="file" name="files[]" id="file-input" accept="image/*" multiple required><br><br>
+    <button type="submit">Upload & Predict</button>
+  </form>
+
+  <!-- Image Preview -->
+  <div id="preview-container" class="preview-container"></div>
+
+  {% if result %}
+  <div class="result">{{ result }}</div>
+  {% endif %}
+</body>
+
+<script>
+  const input = document.getElementById('file-input');
+  const previewContainer = document.getElementById('preview-container');
+
+  input.addEventListener('change', () => {
+    previewContainer.innerHTML = '';
+    const files = input.files;
+    for (let file of files) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const div = document.createElement('div');
+        div.classList.add('preview');
+        div.innerHTML = `<img src="${e.target.result}" alt="${file.name}"><p>${file.name}</p>`;
+        previewContainer.appendChild(div);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+</html>
+
+
+

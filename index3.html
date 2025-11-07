@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cow Lumpy Disease Detection - Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: violet;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav {
+      text-align: center;
+      margin: 20px;
+    }
+
+    nav form {
+      display: inline;
+    }
+
+    nav button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background-color: #45a049;
+    }
+
+    main {
+      padding: 30px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e4848c;
+      color: white;
+    }
+
+    .result-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 3px solid #555;
+    }
+
+    .prediction {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .healthy {
+      color: green;
+    }
+
+    .lumpy {
+      color: red;
+    }
+
+    .invalid {
+      color: orange;
+    }
+
+    footer {
+      background-color: #2e3550;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>Cow Lumpy Disease Detection - Result</header>
+
+  <nav>
+    <form action="/" method="GET">
+      <button type="submit">Home</button>
+    </form>
+    <form action="/page2" method="GET">
+      <button type="submit">Info Page</button>
+    </form>
+    <form action="/page3" method="GET">
+      <button type="submit">About / Result</button>
+    </form>
+  </nav>
+
+  <main>
+    <h2>About Lumpy Skin Disease</h2>
+    <p>
+      Lumpy skin disease is a viral infection in cattle caused by the <b>Capripoxvirus</b>.
+      It causes nodules on the skin, fever, and weakness. Early detection helps prevent spreading.
+    </p>
+
+    <table>
+      <tr>
+        <th>Symptom 1</th>
+        <th>Symptom 2</th>
+        <th>Symptom 3</th>
+      </tr>
+      <tr>
+        <td>Swelling</td>
+        <td>Full of pus</td>
+        <td>Honeycombed appearance</td>
+      </tr>
+    </table>
+
+    {% if results and results[0] %}
+    <div class="result-section">
+      <div class="card">
+        <img src="{{ results[0].filepath }}" alt="{{ results[0].filename }}">
+        <p><strong>{{ results[0].filename }}</strong></p>
+
+        {% if 'Healthy' in results[0].prediction %}
+          <p class="prediction healthy">{{ results[0].prediction }}</p>
+        {% elif 'Lumpy' in results[0].prediction %}
+          <p class="prediction lumpy">{{ results[0].prediction }}</p>
+        {% else %}
+          <p class="prediction invalid">{{ results[0].prediction }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+      <p><strong>No result available. Please upload a cow image on the Home page.</strong></p>
+    {% endif %}
+  </main>
+
+  <footer>&copy; 2025 Cow Lumpy Detection System</footer>
+</body>
+</html>
