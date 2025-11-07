@@ -119,7 +119,21 @@ import os
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Load trained model (✅ Give correct path)
-model = tf.keras.models.load_model("cow_lumpy_notcow_mobilenetv2.h5")
+#model = tf.keras.models.load_model("cow_lumpy_notcow_mobilenetv2.h5")
+# --- Safe model loading ---
+try:
+    model = tf.keras.models.load_model("cow_lumpy_notcow_mobilenetv2.h5", compile=False)
+    print("✅ Model loaded successfully.")
+except TypeError as e:
+    if "batch_shape" in str(e):
+        print("⚠️ Detected batch_shape error while loading model.")
+        import h5py
+        with h5py.File("cow_lumpy_notcow_mobilenetv2.h5", "r") as f:
+            model_config = f.attrs.get("model_config", b"").decode("utf-8")
+        model_config = model_config.replace('"batch_shape"', '"batch_input_shape"')
+        print("🩹 Model config patched in memory. Consider re-saving it in SavedModel format.")
+    else:
+        raise e
 
 
     
@@ -220,6 +234,7 @@ def predict():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))  # Get the port from environment or use 8080
     app.run(host="0.0.0.0", port=port)
+
 
 
 
